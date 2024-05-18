@@ -16,9 +16,10 @@ export class ClubService {
     }
 
     async findOne(id: string): Promise<ClubEntity> {
-        const socio: ClubEntity = await this.clubRepository.findOne({where: {id}, relations: ["socios"] } );
-        
-        return socio;
+        const club: ClubEntity = await this.clubRepository.findOne({where: {id}, relations: ["socios"] } );
+        if (!club) 
+            throw new BusinessLogicException("Club no encontrado", BusinessError.NOT_FOUND)
+        return club;
     }
     
     async create(club: ClubEntity): Promise<ClubEntity> {
@@ -27,19 +28,21 @@ export class ClubService {
         }
         else
         {
-            throw new BusinessLogicException("The club descrpition must be shorter than 100 characters", BusinessError.BAD_FORMAT);
+            throw new BusinessLogicException("The club descrpition must be shorter than 100 characters", BusinessError.PRECONDITION_FAILED);
         }
     }
 
     async update(id: string, club: ClubEntity): Promise<ClubEntity> {
         const persistedClub: ClubEntity = await this.clubRepository.findOne({where:{id}});
+        if (!persistedClub) 
+            throw new BusinessLogicException("Club no encontrado", BusinessError.NOT_FOUND)
         if (persistedClub.description.length<100)
             {
                 return await this.clubRepository.save({...persistedClub, ...club});
             }
             else
         {
-            throw new BusinessLogicException("The club descrpition must be shorter than 100 characters", BusinessError.BAD_FORMAT);
+            throw new BusinessLogicException("The club descrpition must be shorter than 100 characters", BusinessError.PRECONDITION_FAILED);
         }
             
         
@@ -47,7 +50,8 @@ export class ClubService {
 
     async delete(id: string) {
         const club: ClubEntity = await this.clubRepository.findOne({where:{id}});
-        
+        if (!club) 
+            throw new BusinessLogicException("Club no encontrado", BusinessError.NOT_FOUND)
         await this.clubRepository.remove(club);
     }
 }
