@@ -9,21 +9,20 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 
 @Module({
-  imports: [
+  imports: [SocioModule,
+    ClubModule, 
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
       port: 5432,
       username: 'postgres',
       password: 'postgres',
-      database: 'social',
+      database: 'clubes',
       entities: [SocioEntity, ClubEntity],
       dropSchema: true,
       synchronize: true,
       keepConnectionAlive: true
     }),
-    SocioModule,
-    ClubModule, 
   ],
   controllers: [AppController],
   providers: [AppService],

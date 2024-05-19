@@ -24,7 +24,6 @@ export class ClubSocioService {
             throw new BusinessLogicException("Socio no encontrado", BusinessError.NOT_FOUND);
 
         club.socios = [...club.socios, socio];
-
         return await this.clubRepository.save(club);
     }
 

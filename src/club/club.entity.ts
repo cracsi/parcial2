@@ -24,10 +24,7 @@ export class ClubEntity {
     description: string;
  
     @Column()
-    type: string;
- 
-    @Column()
-    mainImage: string;
+    image: string;
 
     @ManyToMany(() => SocioEntity, socio => socio.clubs)
    socios: SocioEntity[];
