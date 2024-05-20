@@ -1,0 +1,362 @@
+{
+	"info": {
+		"_postman_id": "cea7c3cf-4a55-4bce-a129-298749c5408c",
+		"name": "Socios",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23133499"
+	},
+	"item": [
+		{
+			"name": "create socio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"spcio_id\", data.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"berni\",\r\n    \"email\": \"12@1.com\",\r\n    \"birthday\": \"1\",\r\n    \"birthmonth\": \"7\",\r\n    \"birthyear\": \"2005\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/socios",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"socios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create socio invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The socio's mail has an invalid format\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 412\", function () {\r",
+							"   pm.response.to.have.status(412);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"berni\",\r\n    \"email\": \"121.com\",\r\n    \"birthday\": \"1\",\r\n    \"birthmonth\": \"7\",\r\n    \"birthyear\": \"2005\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/socios",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"socios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get socios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Number of socios > ' + 0, function () {\r",
+							"   var data = pm.response.json()\r",
+							"   pm.expect(data.length).to.greaterThan(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/socios",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"socios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get socios by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/socios/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"socios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get socios by id invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"Socio no encontrado\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/socios/-1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"socios",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update socio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"berni updated\",\r\n    \"email\": \"12@1.com\",\r\n    \"birthday\": \"1\",\r\n    \"birthmonth\": \"7\",\r\n    \"birthyear\": \"2005\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/socios/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"socios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update socioinvalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"Socio no encontrado\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"berni updated\",\r\n    \"email\": \"12@1.com\",\r\n    \"birthday\": \"1\",\r\n    \"birthmonth\": \"7\",\r\n    \"birthyear\": \"2005\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/socios/-1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"socios",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete socio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"   pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/socios/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"socios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete socio invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"Socio no encontrado\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/socios/-1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"socios",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

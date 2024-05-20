@@ -1,0 +1,492 @@
+{
+	"info": {
+		"_postman_id": "603d7bde-4496-4025-9495-e72f1013deec",
+		"name": "Clubs-Socios",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23133499"
+	},
+	"item": [
+		{
+			"name": "create club Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"club_id\", data.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Gucci Boys Club\",\r\n    \"foundationday\": \"1\",\r\n    \"foundationmonth\": \"7\",\r\n    \"foundationyear\": \"2005\",\r\n    \"image\": \"https://i1.sndcdn.com/artworks-000095818153-84mnp0-t500x500.jpg\",\r\n    \"descripcion\": \"Gucci Gucci Gucci Boys Club\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/clubs",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"clubs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create socio Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"spcio_id\", data.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"berni\",\r\n    \"email\": \"12@1.com\",\r\n    \"birthday\": \"1\",\r\n    \"birthmonth\": \"7\",\r\n    \"birthyear\": \"2005\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/socios",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"socios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create socio Copy 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"spcio_id\", data.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"berni\",\r\n    \"email\": \"12@1.com\",\r\n    \"birthday\": \"1\",\r\n    \"birthmonth\": \"7\",\r\n    \"birthyear\": \"2005\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/socios",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"socios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add socio club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/clubs/1/socios/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"clubs",
+						"1",
+						"socios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add socio club invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"Socio no encontrado\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/clubs/1/socios/-1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"clubs",
+						"1",
+						"socios",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get socios club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Number of socios > ' + 0, function () {\r",
+							"   var data = pm.response.json()\r",
+							"   pm.expect(data.length).to.greaterThan(0)\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/clubs/1/socios/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"clubs",
+						"1",
+						"socios",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get socio club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/clubs/1/socios/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"clubs",
+						"1",
+						"socios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get socio club invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {\r",
+							"   pm.response.to.have.status(412);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"Club no asociado al socio\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/clubs/1/socios/2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"clubs",
+						"1",
+						"socios",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update socios club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {\r",
+							"   pm.response.to.have.status(412);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"El club no esta relacionado con el socio\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"berni\",\r\n    \"email\": \"12@1.com\",\r\n    \"birthday\": \"1\",\r\n    \"birthmonth\": \"7\",\r\n    \"birthyear\": \"2005\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/clubs/1/socios/-1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"clubs",
+						"1",
+						"socios",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update socios club invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"Socio no encontrado\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/clubs/1/socios/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"clubs",
+						"1",
+						"socios",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete socio club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"   pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/clubs/1/socios/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"clubs",
+						"1",
+						"socios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete socio club invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {\r",
+							"   pm.response.to.have.status(412);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"Club no asociado al socio\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/clubs/1/socios/-1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"clubs",
+						"1",
+						"socios",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
